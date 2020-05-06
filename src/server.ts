@@ -6,6 +6,7 @@ import schema from './schema';
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import expressPlayGround from 'graphql-playground-middleware-express';
+import { dataSources } from './data/index';
 
 async function init() {
     // Inicializamos la aplicación express
@@ -19,7 +20,10 @@ async function init() {
     // Inicializamos el servidor de Apollo
     const server = new ApolloServer({
         schema,
-        introspection: true // Necesario
+        introspection: true, // Necesario
+        dataSources: () => ({
+            seasons: new dataSources.SeasonsData()
+        })
     });
 
     server.applyMiddleware({ app });
