@@ -1,4 +1,5 @@
 import { F1 } from './data-source';
+import { checkYear, roundCheck } from '../lib/utils';
 
 export class DataRaces extends F1 {
 
@@ -7,14 +8,16 @@ export class DataRaces extends F1 {
     }
 
     async getYear(year: string) {
-
-        const currentYear = new Date().getFullYear();
-
-        if ( isNaN(+year) || +year < 150 || +year > currentYear ) {
-            year = String(currentYear);
-        }
-
+        year = checkYear(year);
         return await this.get(`${year}.json`, {
+            cacheOptions: { ttl: 60 }
+        });
+    }
+
+    async getYearByRound(year: string, round: number) {
+        round = roundCheck(round);
+        year = checkYear(year);
+        return await this.get(`${year}/${round}.json`, {
             cacheOptions: { ttl: 60 }
         });
     }
