@@ -22,7 +22,8 @@ async function init() {
         schema,
         introspection: true, // Necesario
         dataSources: () => ({
-            seasons: new dataSources.SeasonsData()
+            seasons: new dataSources.SeasonsData(),
+            races: new dataSources.DataRaces()
         })
     });
 
