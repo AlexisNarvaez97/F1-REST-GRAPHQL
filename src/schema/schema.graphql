@@ -1,10 +1,70 @@
 type Query {
-    hello: String!
-    helloWithName(name: String!): String!
-    helloToGraphQLCourse: String!
-    list: [String]
+  seasonList: [Season!]!
+  racesByYear(year: String!): [Race!]!
+  raceSelect(year: String!, round: Int!): Race
+  historyDrivers(pageElements: Int, page: Int): [Driver!]!
+  driversYear(year: String!): [Driver!]!
+  driversYearAndRound(year: String!, round: Int!): [Driver!]!
+  driverSelect(id: String!): Driver
+  seasonsPilotsRanking(year: String!): [DriverStanding!]!
+  circuitList(pageElements: Int, page: Int): [Circuit!]!
+  circuitSelect(id: String!): Circuit!
 }
 
-type Mutation {
-    add(value: String!): [String]
+type Season {
+  year: String!
+  url: String!
+  urlMobile: String!
+}
+
+type Race {
+  season: String!
+  round: String!
+  url: String!
+  name: String!
+  circuit: Circuit!
+  date: String!
+  time: String
+}
+
+type Circuit {
+  id: String!
+  url: String!
+  name: String!
+  location: Location!
+}
+
+type Location {
+  lat: String!
+  lng: String!
+  locality: String!
+  country: String!
+}
+
+type Driver {
+  id: String!
+  url: String!
+  urlMobile: String!
+  name: String!
+  dateOfBirth: String!
+  nationality: String!
+  code: String
+  permanentNumber: String
+}
+
+type DriverStanding {
+  position: String!
+  positionText: String!
+  points: String!
+  wins: String!
+  driver: Driver!
+  constructors: [Constructor!]!
+}
+
+type Constructor {
+  id: String!
+  url: String!
+  urlMobile: String!
+  name: String!
+  nationality: String!
 }
