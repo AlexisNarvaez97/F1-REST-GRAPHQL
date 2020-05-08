@@ -7,6 +7,7 @@ type Query {
   driversYearAndRound(year: String!, round: Int!): [Driver!]!
   driverSelect(id: String!): Driver
   seasonsPilotsRanking(year: String!): [DriverStanding!]!
+  circuitList(pageElements: Int, page: Int): [Circuit!]!
 }
 
 type Season {

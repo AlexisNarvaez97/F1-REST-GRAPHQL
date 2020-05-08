@@ -1,5 +1,4 @@
 import { IResolvers } from 'graphql-tools';
-import { dataSources } from '../data/index';
 
 const query: IResolvers = {
     Query: {
@@ -41,6 +40,11 @@ const query: IResolvers = {
         async seasonsPilotsRanking(_:void, { year } , { dataSources }) {
             return await dataSources.drivers.seasonsPilot(year).then(
                 (data: any) => data.MRData.StandingsTable.StandingsLists[0].DriverStandings
+            );
+        },
+        async circuitList(_: void, { pageElements, page }, { dataSources }) {
+            return await dataSources.circuits.getCircuits(pageElements, page).then(
+                (data: any) => data.MRData.CircuitTable.Circuits
             );
         }
     }
