@@ -23,7 +23,8 @@ async function init() {
         introspection: true, // Necesario
         dataSources: () => ({
             seasons: new dataSources.SeasonsData(),
-            races: new dataSources.DataRaces()
+            races: new dataSources.DataRaces(),
+            drivers: new dataSources.DataDrivers()
         })
     });
 

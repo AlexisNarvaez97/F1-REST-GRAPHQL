@@ -17,6 +17,20 @@ const type: IResolvers = {
     },
     Location: {
         lng: parent => parent.long
+    },
+    Driver: {
+        id: parent => parent.driverId,
+        urlMobile: parent => getWikipediaMobileUrl(parent.url),
+        name: parent => parent.givenName.concat(' ').concat(parent.familyName)
+        // name: parent => `${parent.givenName} ` + `${parent.familyName}`
+    },
+    DriverStanding: {
+        driver: parent => parent.Driver,
+        constructors: parent => parent.Constructors
+    },
+    Constructor: {
+        id: parent => parent.constructorId,
+        urlMobile: parent => getWikipediaMobileUrl(parent.url)
     }
 };
 

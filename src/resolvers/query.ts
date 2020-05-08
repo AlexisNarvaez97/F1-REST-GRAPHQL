@@ -1,4 +1,5 @@
 import { IResolvers } from 'graphql-tools';
+import { dataSources } from '../data/index';
 
 const query: IResolvers = {
     Query: {
@@ -16,6 +17,31 @@ const query: IResolvers = {
             return await dataSources.races.getYearByRound(year, round).then(
                 (data: any) => data.MRData.RaceTable.Races[0]
             );            
+        },
+        async historyDrivers(_: void, { pageElements, page }, { dataSources }) {
+            return await dataSources.drivers.getDrivers(pageElements, page).then(
+                (data: any) => data.MRData.DriverTable.Drivers
+            );
+        },
+        async driversYear(_: void, { year }, { dataSources }) {
+            return await dataSources.drivers.getYearDrivers(year).then(
+                (data: any) => data.MRData.DriverTable.Drivers
+            );
+        },
+        async driversYearAndRound(_: void, { year, round }, { dataSources} ) {
+            return await dataSources.drivers.driversYearAndRound(year, round).then(
+                (data: any) => data.MRData.DriverTable.Drivers
+            );
+        },
+        async driverSelect(_: void, { id }, { dataSources}) {
+            return await dataSources.drivers.driverId(id).then(
+                (data: any) => data.MRData.DriverTable.Drivers[0]
+            );
+        },
+        async seasonsPilotsRanking(_:void, { year } , { dataSources }) {
+            return await dataSources.drivers.seasonsPilot(year).then(
+                (data: any) => data.MRData.StandingsTable.StandingsLists[0].DriverStandings
+            );
         }
     }
 };
